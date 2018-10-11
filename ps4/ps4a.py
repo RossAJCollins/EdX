@@ -204,7 +204,7 @@ def calculateHandlen(hand):
     """
     handLength = 0
     for key in hand:
-        handlength += hand[key]
+        handLength += hand[key]
     return handLength
 
 
@@ -231,39 +231,29 @@ def playHand(hand, wordList, n):
       n: integer (HAND_SIZE; i.e., hand size required for additional points)
       
     """
-    # BEGIN PSEUDOCODE <-- Remove this comment when you code this function; do your coding within the pseudocode (leaving those comments in-place!)
-    # Keep track of the total score
-    
-    # As long as there are still letters left in the hand:
-    
-        # Display the hand
-        
-        # Ask user for input
-        
-        # If the input is a single period:
-        
-            # End the game (break out of the loop)
+    roundScore=0
+    while calculateHandlen(hand)>0:
+        displayHand(hand)
+        userInput = str(input('Enter word, or a "." to indicate that you are finished: '))
+        if userInput == '.':
+            break
+        elif isValidWord(userInput,hand,wordList)== False:        
+            print('"'+userInput+'"'+' is not a valid word')
+            print()
+        else:
+            roundScore += getWordScore(userInput,calculateHandlen(hand))
+            print(str(userInput)+' earned '+str(getWordScore(userInput,calculateHandlen(hand)))+' points. Total: '+str(roundScore)+' points')
+            print()
+            hand = updateHand(hand,userInput)
+    print('Total score: '+str(roundScore)+' points.')
+  
 
-            
-        # Otherwise (the input is not a single period):
-        
-            # If the word is not valid:
-            
-                # Reject invalid word (print a message followed by a blank line)
 
-            # Otherwise (the word is valid):
 
-                # Tell the user how many points the word earned, and the updated total score, in one line followed by a blank line
-                
-                # Update the hand 
-                
 
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
-
-
-#
-# Problem #5: Playing a game
-# 
+#Problem #5: Playing a game
+ 
 
 def playGame(wordList):
     """
