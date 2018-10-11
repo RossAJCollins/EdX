@@ -232,20 +232,24 @@ def playHand(hand, wordList, n):
       
     """
     roundScore=0
+    initialLength=calculateHandlen(hand)
     while calculateHandlen(hand)>0:
         displayHand(hand)
         userInput = str(input('Enter word, or a "." to indicate that you are finished: '))
         if userInput == '.':
             break
         elif isValidWord(userInput,hand,wordList)== False:        
-            print('"'+userInput+'"'+' is not a valid word')
+            print('"'+userInput+'"'+'Invalid word, please try again.')
             print()
         else:
-            roundScore += getWordScore(userInput,calculateHandlen(hand))
-            print(str(userInput)+' earned '+str(getWordScore(userInput,calculateHandlen(hand)))+' points. Total: '+str(roundScore)+' points')
+            roundScore += getWordScore(userInput,initialLength)
+            print(str(userInput)+' earned '+str(getWordScore(userInput,initialLength))+' points. Total: '+str(roundScore)+' points')
             print()
             hand = updateHand(hand,userInput)
-    print('Total score: '+str(roundScore)+' points.')
+    if calculateHandlen(hand)<=0:
+        print('Run out of letters. Total score: '+str(roundScore)+' points.')
+    else:
+        print('Total score: '+str(roundScore)+' points.')
   
 
 
